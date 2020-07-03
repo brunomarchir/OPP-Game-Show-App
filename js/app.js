@@ -18,10 +18,10 @@ button.addEventListener("click", (e) => {
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("key")) {
-    e.target.style.transform = ('');
+    e.target.style.transform = "";
     return game.handleInteraction(e.target);
   } else {
-    e.target.style.transform = ('');
+    e.target.style.transform = "";
     return false;
   }
 });
@@ -30,7 +30,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   let keyboard = e.key;
   for (let i = 0; i < keys.length; i++) {
-    if (keyboard === keys[i].innerHTML) {
+    if (keyboard === keys[i].innerHTML && !keys[i].disabled) {
       return game.handleInteraction(keys[i]);
     }
   }
@@ -39,12 +39,12 @@ document.addEventListener("keydown", (e) => {
 //adds animation (expands) when hovering over the screen keyboard
 document.addEventListener("mouseover", (e) => {
   if (e.target.classList.contains("key")) {
-    return e.target.style.transform = ('scale(1.5) perspective(1px)');
+    return (e.target.style.transform = "scale(1.5) perspective(1px)");
   }
-})
+});
 
 document.addEventListener("mouseout", (e) => {
   if (e.target.classList.contains("key")) {
-    return e.target.style.transform = ('');
+    return (e.target.style.transform = "");
   }
-})
+});

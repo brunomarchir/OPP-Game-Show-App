@@ -15,22 +15,22 @@ class Game {
     if (this.activePhrase.checkLetter(button.innerHTML)) {
       button.className = "chosen";
       this.activePhrase.showMatchedLetter(button.innerHTML);
+      if (document.getElementById("overlay").style.visibility == "hidden") {
+        if (this.checkForWin()) {
+          this.gameOver(this.checkForWin());
+        }
+      }
     } else {
       button.className = "wrong";
       this.removeLife();
     }
-    if (document.getElementById("overlay").style.visibility == "hidden") {
-      if (this.checkForWin()) {
-        this.gameOver(this.checkForWin());
-      }
-    }
-    //console.log(button);
   }
   createPhrases(phrase) {
     this.phrases.push(phrase);
   }
   getRandomPhrase() {
-    let randomIndex = Math.floor(Math.random() * (this.phrases.length - 1));
+    let randomIndex = Math.floor(Math.random() * this.phrases.length);
+    //console.log(randomIndex);
     return this.phrases[randomIndex];
   }
   startGame() {
@@ -49,8 +49,10 @@ class Game {
     return true;
   }
   removeLife() {
-    document.querySelector('.main-container').style.background = '#f5785f';
-    setTimeout(function() {document.querySelector('.main-container').style.background = '';}, 300);
+    document.querySelector(".main-container").style.background = "#f5785f";
+    setTimeout(function () {
+      document.querySelector(".main-container").style.background = "";
+    }, 300);
     let heart = document.getElementsByTagName("img");
     heart[this.missed].src = "./images/lostHeart.png";
     this.missed += 1;
@@ -62,11 +64,11 @@ class Game {
   gameOver(result) {
     document.getElementById("overlay").style.visibility = "";
     if (result === false) {
-      document.getElementById("overlay").classList = 'lose';
+      document.getElementById("overlay").classList = "lose";
       document.querySelector("#game-over-message").textContent =
         "You lost, try again!";
     } else {
-      document.getElementById("overlay").classList = 'win';
+      document.getElementById("overlay").classList = "win";
       document.querySelector("#game-over-message").textContent =
         "You won, awesome!";
     }
